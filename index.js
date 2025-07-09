@@ -472,4 +472,38 @@ function redefineConsoleMethod(methodName, filterStrings) {
 setInterval(async () => {
   if (global.stopped === 'close' || !global.conn || !global.conn.user) return;
   await clearTmp();
-  console.log(chalk.bold.cyanBright(`\n╭» ❍ MULTIMEDIA ❍\n│→ ARCHIVOS DE LA CARPETA TMP ELIMINADAS\n╰― ― ― ― ― ― ― ― ― 
+  console.log(chalk.bold.cyanBright(`\n╭» ❍ MULTIMEDIA ❍\n│→ ARCHIVOS DE LA CARPETA TMP ELIMINADAS\n╰― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ⌫ ♻`));
+}, 1000 * 60 * 4);
+
+setInterval(async () => {
+  if (global.stopped === 'close' || !global.conn || !global.conn.user) return;
+  await purgeSession();
+  console.log(chalk.bold.cyanBright(`\n╭» ❍ ${global.BotConfig.identity.sessionDir} ❍\n│→ SESIONES NO ESENCIALES ELIMINADAS\n╰― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ⌫ ♻`));
+}, 1000 * 60 * 10);
+
+setInterval(async () => {
+  if (global.stopped === 'close' || !global.conn || !global.conn.user) return;
+  await purgeSessionSB();
+}, 1000 * 60 * 10);
+setInterval(async () => {
+  if (global.stopped === 'close' || !global.conn || !global.conn.user) return;
+  await purgeOldFiles();
+  console.log(chalk.bold.cyanBright(`\n╭» ❍ ARCHIVOS ❍\n│→ ARCHIVOS RESIDUALES ELIMINADAS\n╰― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ― ⌫ ♻`));
+}, 1000 * 60 * 10);
+
+_quickTest().then(() => global.conn.logger.info(chalk.bold(`✅ ${global.BotConfig.identity.name} | Iniciado Correctamente ✅\n`.trim()))).catch(console.error);
+
+async function isValidPhoneNumber(number) {
+  try {
+    number = number.replace(/\s+/g, '');
+    if (number.startsWith('+521')) {
+      number = number.replace('+521', '+52');
+    } else if (number.startsWith('+52') && number[4] === '1') {
+      number = number.replace('+52 1', '+52');
+    }
+    const parsedNumber = phoneUtil.parseAndKeepRawInput(number);
+    return phoneUtil.isValidNumber(parsedNumber);
+  } catch (error) {
+    return false;
+  }
+}
