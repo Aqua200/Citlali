@@ -12,8 +12,7 @@ import fs, {readdirSync, statSync, unlinkSync, existsSync, mkdirSync, readFileSy
 import yargs from 'yargs';
 import {spawn} from 'child_process'
 import lodash from 'lodash'
-// ¡CORREGIDO AQUÍ! Ahora se importa como CitlaliJadiBot
-import { FurinaJadiBot as CitlaliJadiBot } from './plugins/jadibot-serbot.js' 
+import { CitlaliJadiBot as CitlaliJadiBot } from './plugins/jadibot-serbot.js' 
 import chalk from 'chalk'
 import syntaxerror from 'syntax-error'
 import {tmpdir} from 'os'
